@@ -9,7 +9,8 @@ use(function () {
     }
     test.includeChildren = properties.get('includeChildren') || false;
     if (test.includeChildren) {
-        test.children = sightly.resource.getChildren();
+        var sly = (typeof sightly === "undefined") ? granite : sightly;
+        test.children = sly.resource.getChildren();
     }
 
     return test;

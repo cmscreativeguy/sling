@@ -1,16 +1,31 @@
+<%@ page import="org.apache.sling.api.resource.ValueMap" %>
+<%@ page import="com.adobe.granite.xss.XSSAPI" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="sling" uri="http://sling.apache.org/taglibs/sling"%>
+<%@ taglib prefix="sling" uri="http://sling.apache.org/taglibs/sling/1.2"%>
 <sling:defineObjects />
-<c:set var="properties" value="${sling:adaptTo(resource,'org.apache.sling.api.resource.ValueMap')}" />
-<c:set var="tag" value="${sling:getValue(properties, 'tag', '')}" />
+<%
+    ValueMap properties = resource.adaptTo(ValueMap.class);
+    request.setAttribute("properties", properties);
+
+    XSSAPI xssAPI = sling.getService(XSSAPI.class);
+    String text = xssAPI.encodeForHTML(properties.get("text", resource.getPath()).toString());
+    request.setAttribute("text", text);
+
+    request.setAttribute("tag", properties.get("tag", ""));
+    boolean includeChildren = properties.get("includeChildren", false);
+    request.setAttribute("includeChildren", includeChildren);
+    if (includeChildren) {
+        request.setAttribute("children", resource.listChildren());
+    }
+%>
 <c:if test="${tag != ''}"><${tag}></c:if>
-${sling:encode(sling:getValue(properties, 'text', resource.path), 'HTML')}
+${text}
 <c:if test="${tag != ''}"></${tag}></c:if>
 <sling:call script="mode.jsp" />
-<c:if test="${sling:getValue(properties, 'includeChildren', false)}">
+<c:if test="${includeChildren}">
     <ul>
-        <c:forEach items="${sling:listChildren(resource)}" var="child">
+        <c:forEach items="${children}" var="child">
             <li><sling:include path="${child.path}" /></li>
         </c:forEach>
     </ul>

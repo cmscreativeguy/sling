@@ -6,7 +6,7 @@ import javax.script.Bindings;
 
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
-import org.apache.sling.scripting.sightly.pojo.Use;
+import io.sightly.java.api.Use;
 
 public class Test implements Use {
 

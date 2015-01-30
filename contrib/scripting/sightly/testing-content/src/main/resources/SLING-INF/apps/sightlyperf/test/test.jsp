@@ -1,10 +1,10 @@
 <%@ page import="org.apache.sling.api.resource.Resource" %>
 <%@ page import="org.apache.sling.api.resource.ValueMap" %>
-<%@ page import="org.apache.sling.xss.XSSAPI" %>
+<%@ page import="com.adobe.granite.xss.XSSAPI" %>
 <%@ page import="java.util.Iterator" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="sling" uri="http://sling.apache.org/taglibs/sling"%>
+<%@ taglib prefix="sling" uri="http://sling.apache.org/taglibs/sling/1.2"%>
 <sling:defineObjects />
 <%
     ValueMap properties = resource.adaptTo(ValueMap.class);

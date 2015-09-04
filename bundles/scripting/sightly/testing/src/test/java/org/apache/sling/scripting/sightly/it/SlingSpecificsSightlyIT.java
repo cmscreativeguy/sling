@@ -40,6 +40,7 @@ public class SlingSpecificsSightlyIT {
     private static final String SLING_JS_DEPENDENCY_RESOLUTION = "/sightly/use-sibling-dependency-resolution.html";
     private static final String SLING_USE_INHERITANCE_WITHOVERLAY = "/sightly/useinheritance.html";
     private static final String SLING_USE_INHERITANCE_WITHOUTOVERLAY = "/sightly/useinheritance.notoverlaid.html";
+    private static final String SLING_EVALUATOR = "/sightly/evaluator.html";
 
     @BeforeClass
     public static void init() {
@@ -141,4 +142,10 @@ public class SlingSpecificsSightlyIT {
         assertEquals("notoverlaid", HTMLExtractor.innerHTML(url, pageContent, "#notoverlaid"));
     }
 
+    @Test
+    public void testEvaluator() {
+        String url = launchpadURL + SLING_EVALUATOR;
+        String pageContent = client.getStringContent(url, 200);
+        assertEquals("evaluated at runtime", HTMLExtractor.innerHTML(url, pageContent, "#evaluator"));
+    }
 }

@@ -28,5 +28,10 @@
     "use-sibling-dependency-resolution": {
         "jcr:primaryType": "nt:unstructured",
         "sling:resourceType": "/apps/sightly/scripts/siblingdeps/component"
+    },
+    "evaluator": {
+        "jcr:primaryType": "nt:unstructured",
+        "sling:resourceType": "/apps/sightly/scripts/evaluator",
+        "test": "evaluated at ${ 'runtime' }"
     }
 }
